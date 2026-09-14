@@ -39,15 +39,26 @@ return {
     },
     fmt(
       [[
-        ---{}---
-        -- {} --
-        ---{}---
+      {}{}
+      {} {}
+      {}{}
 
-        {}]],
+      {}]],
       {
-        f(function(args) return string.rep("-", string.len(args[1][1])) end, { 1 }),
+        f(function() return vim.bo.commentstring:match("^(.-)%s*%%s") or "" end),
+        f(function()
+          local col = vim.api.nvim_win_get_cursor(0)[2]
+          local width = vim.api.nvim_get_option_value("textwidth", {}) - col - 1
+          return string.rep("-", width)
+        end),
+        f(function() return vim.bo.commentstring:match("^(.-)%s*%%s") or "" end),
         i(1),
-        f(function(args) return string.rep("-", string.len(args[1][1])) end, { 1 }),
+        f(function() return vim.bo.commentstring:match("^(.-)%s*%%s") or "" end),
+        f(function()
+          local col = vim.api.nvim_win_get_cursor(0)[2]
+          local width = vim.api.nvim_get_option_value("textwidth", {}) - col - 1
+          return string.rep("-", width)
+        end),
         i(0),
       }
     )

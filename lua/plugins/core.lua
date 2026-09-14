@@ -121,7 +121,19 @@ return {
         end
       end,
       formatters = {
-        black = { prepend_args = { "--line-length", "88" } },
+        black = {
+          command = "uv",
+          prepend_args = { "run", "black", "--line-length", "88" },
+        },
+        isort = {
+          command = "uv",
+          prepend_args = { "run", "isort" },
+        },
+        docformatter = {
+          command = "uv",
+          args = { "run", "docformatter", "-" },
+          stdin = true,
+        },
         djlint = { prepend_args = { "--indent", "2" } },
         prettier = { prepend_args = { "--tab-width", "2" } },
         shfmt = { prepend_args = { "-i", "4" } },
